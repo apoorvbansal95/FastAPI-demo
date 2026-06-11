@@ -12,3 +12,16 @@ def load_products()->List[Dict]:
     
 def getAllProducts()->List[Dict]:
     return load_products()
+
+
+def save_products(products:List[Dict]):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(products, f, indent=2, ensure_ascii=False)
+
+def add_products(product:Dict):
+    products=getAllProducts()
+    if any(p["sku"]==product["sku"] for p in products):
+        raise ValueError(f"Product with SKU {product['sku']} already exists.")
+    products.append(product)
+    save_products(products)
+    return product

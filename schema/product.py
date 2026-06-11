@@ -4,7 +4,7 @@ from pydantic import (BaseModel, Field,AnyUrl,
     computed_field,
     EmailStr)
 from typing import Annotated, List , Optional ,Literal
-from uuid import UUID
+from uuid import UUID, uuid4
 from datetime import datetime
 
 
@@ -51,7 +51,7 @@ class Seller(BaseModel):
         return value
 
 class Product(BaseModel):
-    id: UUID
+    id: UUID=uuid4()
     sku: Annotated[
         str,
         Field(
